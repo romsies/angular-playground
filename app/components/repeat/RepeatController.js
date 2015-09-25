@@ -17,6 +17,7 @@ function RepeatController(){
   
   this.getCartCount = function(){
     //return the length of our cart
+    return this.cart.length;
   };
   
   /*
@@ -25,6 +26,11 @@ function RepeatController(){
   * this function should return the total cost
   * of each item that is in our cart
   */ 
+  this.calculateCartTotal = function(){
+    this.cart.forEach(function(item){
+      this.total += item;
+    })
+  }
   
   
   this.removeItemFromCart = function(item){
@@ -54,7 +60,15 @@ function RepeatController(){
       remaped to the newItem object. 
       After building the newItem add it to the cart 
       */
-      
+     
+      var newItem = {
+        name:item.name,
+        color:item.selectedColor,
+        size: item.selectedSize,
+        quantity: 1,
+        price:item.price,     
+      }
+      this.cart.push(newItem);
   }
   
 }
