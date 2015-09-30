@@ -5,5 +5,6 @@ app.controller('BindingsController', BindingsController);
 
 function BindingsController(){
 	this.bindingsStatus = 'Working';
-	this.name= "Please enter your Name";
+	this.name= "Who dat be???";
+	this.nickName = "MY FRIENDS CALL ME ... "
 }

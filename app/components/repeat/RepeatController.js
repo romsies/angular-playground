@@ -3,7 +3,7 @@ var app = angular.module('angularPlayground');
 app.controller('RepeatController', RepeatController);
 
 
-function RepeatController(){
+function RepeatController() {
   this.repeatStatus = 'Working';
   //The cart is an array of items that we are adding from our view
   this.cart = [];
@@ -13,11 +13,15 @@ function RepeatController(){
   };
   //*** No Need to edit anything above this line ****
   
-  this.name = "My BɼokƏn Cart!";
-  
-  this.getCartCount = function(){
+  this.name = "FIXING My BɼokƏn Cart!";
+
+  this.getCount = function () {
     //return the length of our cart
-    return this.cart.length;
+    var runningCount = 0;
+    this.cart.forEach(function (item) {
+      runningCount += item.quantity;
+    })
+    return runningCount;
   };
   
   /*
@@ -25,15 +29,17 @@ function RepeatController(){
   * make it assesible to our view
   * this function should return the total cost
   * of each item that is in our cart
-  */ 
-  this.calculateCartTotal = function(){
-    this.cart.forEach(function(item){
-      this.total += item;
-    })
+  */
+  this.calculateCartTotal = function () {
+    var runningTotal = 0;
+    this.cart.forEach(function (item) {
+      runningTotal += item.quantity * item.price;
+    });
+    return runningTotal;
   }
-  
-  
-  this.removeItemFromCart = function(item){
+
+
+  this.removeItemFromCart = function (item) {
     //Item gets passed in from our view when the user clicks the x button
     /*
     * This function should be able to remove the passed in item
@@ -41,34 +47,40 @@ function RepeatController(){
     * in item is in the array. Then you will need to use the correct
     * Array.method to remove 1 item hint method(i, 1);
     */
+    console.log(item);
+    for (var i = 0; i < this.cart.length; i++) {
+      if (item === this.cart[i]) {
+        this.cart.splice(i, 1);
+      }
+    }
   };
-  
-  this.addItemToCart = function(item){
-      //item gets passed in to this function from the view
+
+  this.addItemToCart = function (item) {
+    //item gets passed in to this function from the view
       
-      /*
-      Our cart demands that items being added to it must have the following properties
-      var newItem = {
-        name:'',
-        color:'',
-        size: '',
-        quantity: 1,
-        price:'',
-      }
-      console.log the item being passed in from the view 
-      to figure out which properties from item need to be 
-      remaped to the newItem object. 
-      After building the newItem add it to the cart 
-      */
-     
-      var newItem = {
-        name:item.name,
-        color:item.selectedColor,
-        size: item.selectedSize,
-        quantity: 1,
-        price:item.price,     
-      }
-      this.cart.push(newItem);
+    /*
+    Our cart demands that items being added to it must have the following properties
+    var newItem = {
+      name:'',
+      color:'',
+      size: '',
+      quantity: 1,
+      price:'',
+    }
+    console.log the item being passed in from the view 
+    to figure out which properties from item need to be 
+    remaped to the newItem object. 
+    After building the newItem add it to the cart 
+    */
+
+    var newItem = {
+      name: item.name,
+      color: item.selectedColor,
+      size: item.selectedSize,
+      quantity: 1,
+      price: item.price,
+    }
+    this.cart.push(newItem);
   }
-  
+
 }
